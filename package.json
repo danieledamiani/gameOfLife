@@ -1,21 +1,18 @@
 {
-  "name": "js-starter-kit",
+  "name": "gameoflife",
   "version": "1.0.0",
-  "description": "JavaScript Starter Kit",
+  "description": "",
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage.js",
-    "start": "npm-run-all --parallel security-check open:src lint:watch test:watch start-mockapi",
+    "start": "npm-run-all --parallel security-check open:src lint:watch test:watch",
     "open:src": "babel-node buildScripts/srcServer.js",
     "lint": "esw webpack.config.* src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel",
-    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\" ",
+    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.spec.js\" ",
     "test:watch": "npm run test -- --watch",
-    "generate-mock-data": "babel-node buildScripts/generateMockData",
-    "prestart-mockapi": "npm run generate-mock-data",
-    "start-mockapi": "json-server --watch src/api/db.json --port 3001",
     "clean-dist": "rimraf ./dist && mkdir dist",
     "prebuild": "npm-run-all clean-dist test lint",
     "build": "babel-node buildScripts/build.js",
@@ -24,12 +21,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danieledamiani/js-starter-kit"
+    "url": "git+https://github.com/danieledamiani/gameOfLife.git"
   },
   "author": "Daniele Damiani",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
-    "whatwg-fetch": "2.0.3"
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",

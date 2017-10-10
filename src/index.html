@@ -1,30 +1,45 @@
-<!-- this is an ejs file that allows htmlWebpackPlugin to add dynamically referencens
--->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <% if(htmlWebpackPlugin.options.trackJSToken) { %>
-  <!-- BEGIN TRACKJS -->
-  <script type="text/javascript">window._trackJs = { token: '<%=htmlWebpackPlugin.options.trackJSToken%>' };</script>
-  <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>
-  <!-- END TRACKJS -->
-  <% } %>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Conways Game of Life</title>
 </head>
+
 <body>
-  <h1>Users</h1>
-  <table>
-    <thead>
-      <th>&nbsp;</th>
-      <th>Id</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-    </thead>
-    <tbody id="users"></tbody>
-  </table>
+  <div class="game">
+    <div class="controls">
+      <button id="play">Play</button>
+      <button id="pause">Pause</button>
+      <button id="prev">Prev</button>
+      <button id="next">Next</button>
+
+      <div class="stats">
+        <span>Iteration <span id="iterations"> </span></span>
+      </div>
+
+    </div>
+    <div id="arena"></div>
+  </div>
+  <p>
+    <strong>Rules</strong>
+    <ul>
+      <li>Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.</li>
+      <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+      <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+      <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Wikipedia link</a></li>
+    </ul>
+  </p>
+  <p>
+    <a href="https://github.com/danieledamiani/gameOfLife">Game Of Life on my Github</a>
+  <p>
+  <div>
+    <p><a href="http://danieledamiani.com">danieledamiani.com</a><p>
+  </div>
 </body>
+
 </html>

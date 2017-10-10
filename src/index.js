@@ -1,31 +1,23 @@
-import './index.css';
-import { getUsers, deleteUser } from  './api/userApi';
+import './style.css';
+import Game from './app/Game';
 
-getUsers().then( users => {
-  let usersBody = '';
+const TIMEOUT = 700;
+const ARENA_SIZE = 600;
+const ROWS = 40;
 
-  users.forEach(user => {
-    usersBody += `<tr>
-      <td><a href="#" data-id="${user.id}" class="deleteUser">Delete</a></td>
-      <td>${user.id}</td>
-      <td>${user.firstName}</td>
-      <td>${user.lastName}</td>
-      <td>${user.email}</td>
-    </tr>`;
+window.addEventListener('load', function() {
+  const game = new Game(TIMEOUT, ARENA_SIZE, ROWS);
+  game.start();
+  const playButton = document.getElementById('play');
+  const pauseButton = document.getElementById('pause');
+  const nextButton = document.getElementById('next');
+  const prevButton = document.getElementById('prev');
 
+  playButton.addEventListener('click', function() {
+    game.play();
   });
 
-  global.document.getElementById('users').innerHTML = usersBody;
-
-  const deleteLinks = global.document.getElementsByClassName('deleteUser');
-
-  Array.from(deleteLinks, link => {
-    link.onclick = event => {
-      const element = event.target;
-      event.preventDefault();
-      deleteUser(element.attributes['data-id'].value);
-      const row = element.parentNode.parentNode;
-      row.parentNode.removeChild(row);
-    };
+  pauseButton.addEventListener('click', function() {
+    game.pause();
   });
 });

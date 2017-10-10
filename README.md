@@ -1,16 +1,20 @@
-# js-starter-kit
-JavaScript Starter Kit
+# Conway's Game of Life
 
-# Global utilities
-  - nsp check // Modules security check
-  - lt --port 3000 --subdomain danieledamiani // Exposes a local server
-  - npm start -s // Silent mode
-  - npm run build // Creates a build
+Live on [my site!](http://danieledamiani.com/gameOfLife/index.html)
 
-# Deploy to AWS S3 bucket
-  npm run deploy -- s3://mybucket.mydomain
+## Rules
+ - Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+ - Any live cell with two or three live neighbours lives on to the next generation.
+ - Any live cell with more than three live neighbours dies, as if by overpopulation.
+ - Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+ - [Conway's Game of Life on Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
-# ToDo
-  - improve browser reloading
-  - add favicon support
-  - move jsdom test syntax from legacy to current v5
+## Getting Started
+
+npm start
+
+### Prerequisites
+
+nodeJs 6+
+
+

@@ -2,4 +2,5 @@
 
 /* eslint-disable no-unused-vars */
 
-import fetch from 'whatwg-fetch';
+import jQuery from 'jquery';
+import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
