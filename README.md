@@ -17,4 +17,8 @@ npm start
 
 nodeJs 6+
 
-
+## Todo
+ - use js-starter-kit
+ - ui improvements
+ - add D3 stats
+ - change arena to SVG managed by D3
