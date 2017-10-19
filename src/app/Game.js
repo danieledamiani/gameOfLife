@@ -83,5 +83,4 @@ function Game(timeout, arenaSize, rows) {
     pause
   }
 }
-
-module.exports = Game;
+export default Game;
