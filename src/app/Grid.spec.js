@@ -48,7 +48,6 @@ describe('Grid', function() {
     const grid = new Grid(1, 1);
     grid.init();
 
-    const iteration1 = grid.getGrid();
     grid.iterate();
     const iteration2 = grid.getGrid();
     expect(iteration2[0][0]).to.be.false;
@@ -58,7 +57,6 @@ describe('Grid', function() {
     const grid = new Grid(2, 1);
     grid.init();
 
-    const iteration1 = grid.getGrid();
     grid.iterate();
     const iteration2 = grid.getGrid();
     expect(iteration2[0][0]).to.be.false;
