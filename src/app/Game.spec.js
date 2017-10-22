@@ -6,3 +6,12 @@ describe('Game', () => {
     expect(true).to.equal(true);
   });
 });
+
+describe('Game', function() {
+  it('should be defined', function() {
+    const game = new Game();
+
+    expect(game).not.to.be.undefined;
+  });
+
+});
