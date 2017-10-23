@@ -18,6 +18,9 @@ npm start
 nodeJs 6+
 
 ## Todo
+ - refactor Game as ES6 class
+ - complete Game specs
+ - Grid should have an external dependency to handle the random numbers
  - ui improvements
  - add D3 stats
  - change arena to SVG managed by D3
