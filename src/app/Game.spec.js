@@ -8,10 +8,14 @@ describe('Game', () => {
 });
 
 describe('Game', function() {
-  it('should be defined', function() {
-    const game = new Game();
-
-    expect(game).not.to.be.undefined;
+  it('should throw an error if the grid parameter is not defined', function() {
+    let game;
+    try {
+      game = new Game();
+    } catch(err) {
+      expect(game).to.be.undefined;
+      expect(err.message).to.eql('grid is not defined');
+    }
   });
 
 });

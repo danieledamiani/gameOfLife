@@ -61,4 +61,10 @@ describe('Grid', function() {
     const iteration2 = grid.getGrid();
     expect(iteration2[0][0]).to.be.false;
   });
+
+  it('should return own number of rows and columns', () => {
+    const grid = new Grid(2, 3);
+    expect(grid.getRowNumber()).to.equal(2);
+    expect(grid.getColumnNumber()).to.equal(3);
+  });
 });

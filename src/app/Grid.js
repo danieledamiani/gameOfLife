@@ -84,8 +84,16 @@ class Grid {
     this.setGrid(nextGrid);
   }
 
-   getIterations() {
+  getIterations() {
     return this._iterations;
+  }
+
+  getRowNumber() {
+    return this._rows;
+  }
+
+  getColumnNumber() {
+    return this._columns;
   }
 }
 

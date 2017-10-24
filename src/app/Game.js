@@ -1,15 +1,17 @@
-import Grid from './Grid';
-
 class Game {
-  constructor({timeout = 500, arenaSize = 100, rows = 2} = {}) {
+  constructor({grid, timeout = 500, arenaSize = 100} = {}) {
+    if(!grid) {
+      throw new Error('grid is not defined');
+    }
+    this.grid = grid;
     this.timeout = timeout;
     this.arenaSize = arenaSize;
-    this.rows = this.columns = rows;
+    this.rows = this.grid.getRowNumber();
+    this.columns = this.grid.getColumnNumber();
     this.blockSize = this.arenaSize / this.rows;
     this.iterationTimeout;
     this.inPlay = false;
     this.arena;
-    this.grid;
   }
 
   draw(grid) {
@@ -44,8 +46,6 @@ class Game {
     this.arena = document.getElementById('arena'); // abstract html
     this.arena.style.width = this.arenaSize + 'px'; // abstract html
     this.arena.style.height = this.arenaSize + 'px'; // abstract html
-
-    this.grid = new Grid(this.rows, this.columns); // needs DI
     this.grid.init();
 
     this.draw(this.grid.getGrid());
