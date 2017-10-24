@@ -1,86 +1,82 @@
 import Grid from './Grid';
 
-function Game(timeout, arenaSize, rows) {
-  const TIMEOUT = timeout;
-  const ARENA_SIZE = arenaSize;
-  const ROWS = rows;
-  const COLUMNS = rows;
-  const BLOCK_SIZE = ARENA_SIZE / ROWS;
+class Game {
+  constructor({timeout = 500, arenaSize = 100, rows = 2} = {}) {
+    this.timeout = timeout;
+    this.arenaSize = arenaSize;
+    this.rows = this.columns = rows;
+    this.blockSize = this.arenaSize / this.rows;
+    this.iterationTimeout;
+    this.inPlay = false;
+    this.arena;
+    this.grid;
+  }
 
-  let iterationTimeout;
-  let inPlay = false;
-  let arena;
-  let grid;
-
-  function draw(grid) {
-    arena.innerHTML = null;
-    for(let rowsIterator = 0; rowsIterator < ROWS; rowsIterator ++) {
-      for(let columnsIterator = 0; columnsIterator < COLUMNS; columnsIterator++) {
-        let el = document.createElement('div');
-        el.style.width = BLOCK_SIZE + 'px';
-        el.style.height = BLOCK_SIZE + 'px';
-        el.classList.add('cell');
+  draw(grid) {
+    this.arena.innerHTML = null; // abstract html
+    for(let rowsIterator = 0; rowsIterator < this.rows; rowsIterator ++) {
+      for(let columnsIterator = 0; columnsIterator < this.columns; columnsIterator++) {
+        let el = document.createElement('div'); // abstract html
+        el.style.width = this.blockSize + 'px'; // abstract html
+        el.style.height = this.blockSize + 'px'; // abstract html
+        el.classList.add('cell'); // abstract html
         grid[rowsIterator][columnsIterator] ? el.classList.add('alive') : null;
-        arena.appendChild(el);
+        this.arena.appendChild(el);
       }
     }
   }
 
-  function updateArena(grid) {
-    let cells = arena.getElementsByClassName('cell');
-    console.log(cells.length); // eslint-disable-line no-console
+  updateArena(grid) {
+    let cells = this.arena.getElementsByClassName('cell');
+    // console.log(cells.length); // eslint-disable-line no-console
     let position = 0;
-    for(let rowsIterator = 0; rowsIterator < ROWS; rowsIterator++) {
-      for(let columnsIterator = 0; columnsIterator < COLUMNS; columnsIterator++) {
+    for(let rowsIterator = 0; rowsIterator < this.rows; rowsIterator++) {
+      for(let columnsIterator = 0; columnsIterator < this.columns; columnsIterator++) {
         // grid[rowsIterator][columnsIterator] ? el.classList.add('alive') : null;
         grid[rowsIterator][columnsIterator] ? cells[position].classList.add('alive') : cells[position].classList.remove('alive');
-        console.log(position, grid[rowsIterator][columnsIterator]); // eslint-disable-line no-console
+        // console.log(position, grid[rowsIterator][columnsIterator]); // eslint-disable-line no-console
         position++;
       }
     }
   }
 
-  function start() {
-    arena = document.getElementById('arena');
-    arena.style.width = ARENA_SIZE + 'px';
-    arena.style.height = ARENA_SIZE + 'px';
+  start() {
+    this.arena = document.getElementById('arena'); // abstract html
+    this.arena.style.width = this.arenaSize + 'px'; // abstract html
+    this.arena.style.height = this.arenaSize + 'px'; // abstract html
 
-    grid = new Grid(ROWS, COLUMNS);
-    grid.init();
+    this.grid = new Grid(this.rows, this.columns); // needs DI
+    this.grid.init();
 
-    draw(grid.getGrid());
-    play();
+    this.draw(this.grid.getGrid());
+    this.play();
   }
 
-  function play() {
-    if (inPlay) { return; }
-    inPlay = true;
-    const iterate = function() {
-      iterationTimeout = setTimeout(function() {
-        updateArena(grid.getGrid());
-        updateIterationCounter(grid.getIterations());
-        grid.iterate();
+  play() {
+    if (this.inPlay) { return; }
+    this.inPlay = true;
+    const iterate = () => {
+      this.iterationTimeout = setTimeout(() => {
+        this.updateArena(this.grid.getGrid());
+        this.updateIterationCounter(this.grid.getIterations());
+        this.grid.iterate();
         iterate();
-      }, TIMEOUT);
+      }, this.timeout);
     }
 
     iterate();
   }
 
-  function pause() {
-    inPlay = false;
-    clearTimeout(iterationTimeout);
+  pause() {
+    this.inPlay = false;
+    return clearTimeout(this.iterationTimeout);
   }
 
-  function updateIterationCounter(iterations) {
+  // abstract html
+  updateIterationCounter(iterations) {
     const iterationCounter = document.getElementById('iterations');
     iterationCounter.innerHTML = iterations;
   }
-
-  return {
-    start,
-    play,
-    pause
-  }
 }
+
 export default Game;

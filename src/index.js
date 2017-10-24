@@ -6,12 +6,12 @@ const ARENA_SIZE = 600;
 const ROWS = 40;
 
 window.addEventListener('load', function() {
-  const game = new Game(TIMEOUT, ARENA_SIZE, ROWS);
+  const game = new Game({timeout: TIMEOUT, arenaSize: ARENA_SIZE, rows: ROWS});
   game.start();
   const playButton = document.getElementById('play');
   const pauseButton = document.getElementById('pause');
-  const nextButton = document.getElementById('next');
-  const prevButton = document.getElementById('prev');
+  // const nextButton = document.getElementById('next');
+  // const prevButton = document.getElementById('prev');
 
   playButton.addEventListener('click', function() {
     game.play();
