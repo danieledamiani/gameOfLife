@@ -1,4 +1,5 @@
 import Game from './Game';
+import Grid from './Grid';
 import { expect } from 'chai';
 
 describe('Game', () => {
@@ -16,6 +17,22 @@ describe('Game', function() {
       expect(game).to.be.undefined;
       expect(err.message).to.eql('grid is not defined');
     }
+  });
+
+  it('should be defined', () => {
+    const grid = new Grid(2, 2);
+    const gameOptions = {
+      grid,
+      timeout: 500,
+      arenaSize: 200
+    };
+    const game = new Game(gameOptions);
+
+    expect(game).not.to.be.undefined;
+    expect(typeof game.draw).to.eql('function');
+    expect(typeof game.start).to.eql('function');
+    expect(typeof game.play).to.eql('function');
+    expect(typeof game.updateIterationCounter).to.eql('function');
   });
 
 });
