@@ -61,7 +61,8 @@ export default {
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
-      {test: /\.css$/, loaders: ['style-loader','css-loader']}
+      {test: /\.css$/, loaders: ['style-loader','css-loader']},
+      {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'file-loader?limit=100000'}
     ]
   }
 }
