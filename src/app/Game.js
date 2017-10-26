@@ -1,54 +1,22 @@
 class Game {
-  constructor({grid, timeout = 500, arenaSize = 100} = {}) {
-    if(!grid) {
-      throw new Error('grid is not defined');
+  constructor({dom, grid, timeout = 500, arenaSize = 100} = {}) {
+    if(!grid || !dom) {
+      throw new Error('grid or arena is not defined');
     }
+    this.dom = dom;
     this.grid = grid;
     this.timeout = timeout;
-    this.arenaSize = arenaSize;
     this.rows = this.grid.getRowNumber();
     this.columns = this.grid.getColumnNumber();
-    this.blockSize = this.arenaSize / this.rows;
+    this.blockSize = arenaSize / this.rows;
     this.iterationTimeout;
     this.inPlay = false;
-    this.arena;
-  }
-
-  draw(grid) {
-    this.arena.innerHTML = null; // abstract html
-    for(let rowsIterator = 0; rowsIterator < this.rows; rowsIterator ++) {
-      for(let columnsIterator = 0; columnsIterator < this.columns; columnsIterator++) {
-        let el = document.createElement('div'); // abstract html
-        el.style.width = this.blockSize + 'px'; // abstract html
-        el.style.height = this.blockSize + 'px'; // abstract html
-        el.classList.add('cell'); // abstract html
-        grid[rowsIterator][columnsIterator] ? el.classList.add('alive') : null;
-        this.arena.appendChild(el);
-      }
-    }
-  }
-
-  updateArena(grid) {
-    let cells = this.arena.getElementsByClassName('cell');
-    // console.log(cells.length); // eslint-disable-line no-console
-    let position = 0;
-    for(let rowsIterator = 0; rowsIterator < this.rows; rowsIterator++) {
-      for(let columnsIterator = 0; columnsIterator < this.columns; columnsIterator++) {
-        // grid[rowsIterator][columnsIterator] ? el.classList.add('alive') : null;
-        grid[rowsIterator][columnsIterator] ? cells[position].classList.add('alive') : cells[position].classList.remove('alive');
-        // console.log(position, grid[rowsIterator][columnsIterator]); // eslint-disable-line no-console
-        position++;
-      }
-    }
   }
 
   start() {
-    this.arena = document.getElementById('arena'); // abstract html
-    this.arena.style.width = this.arenaSize + 'px'; // abstract html
-    this.arena.style.height = this.arenaSize + 'px'; // abstract html
     this.grid.init();
-
-    this.draw(this.grid.getGrid());
+    this.dom.reset();
+    this.dom.draw(this.grid.getGrid(), this.rows, this.columns, this.blockSize);
     this.play();
   }
 
@@ -57,7 +25,7 @@ class Game {
     this.inPlay = true;
     const iterate = () => {
       this.iterationTimeout = setTimeout(() => {
-        this.updateArena(this.grid.getGrid());
+        this.dom.update(this.grid.getGrid(), this.rows, this.columns);
         this.updateIterationCounter(this.grid.getIterations());
         this.grid.iterate();
         iterate();

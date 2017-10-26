@@ -1,4 +1,5 @@
 import './style.css';
+import Dom from './app/Dom';
 import Grid from './app/Grid';
 import Game from './app/Game';
 
@@ -8,7 +9,9 @@ const ROWS = 40;
 
 window.addEventListener('load', function() {
   const grid = new Grid(ROWS, ROWS);
+  const dom = new Dom(ARENA_SIZE);
   const game = new Game({
+    dom: dom,
     grid: grid,
     timeout: TIMEOUT,
     arenaSize: ARENA_SIZE
