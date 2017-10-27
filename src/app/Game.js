@@ -40,10 +40,8 @@ class Game {
     return clearTimeout(this.iterationTimeout);
   }
 
-  // abstract html
   updateIterationCounter(iterations) {
-    const iterationCounter = document.getElementById('iterations');
-    iterationCounter.innerHTML = iterations;
+    this.dom.updateIterations(iterations);
   }
 }
 
