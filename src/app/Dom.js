@@ -34,6 +34,11 @@ class Dom {
       }
     }
   }
+
+  updateIterations(iterations) {
+    const iterationCounter = this.document.getElementById('iterations');
+    iterationCounter.innerHTML = iterations;
+  }
 }
 
 export default Dom;
