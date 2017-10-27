@@ -1,7 +1,6 @@
-import Dom from './Dom';
 import Game from './Game';
-import Grid from './Grid';
 import { expect } from 'chai';
+import sinon from 'sinon';
 
 describe('Game', () => {
   it('should return true if the test env is correctly set', () => {
@@ -9,8 +8,27 @@ describe('Game', () => {
   });
 });
 
-describe.skip('Game', function() {
+describe('Game', function() {
+  let Dom, Grid;
+
   describe('constructor', () => {
+    beforeEach(() => {
+      Dom = sinon.stub().returns({
+        reset: sinon.spy(),
+        draw: sinon.spy(),
+        update: sinon.spy(() => console.log('calling update...')),
+        updateIterations: sinon.spy()
+      });
+      Grid = sinon.stub().returns({
+        init: sinon.spy(),
+        getRowNumber: sinon.spy(() => 2),
+        getColumnNumber: sinon.spy(() => 2),
+        getGrid: sinon.spy(() => [[true, true], [false, false]]),
+        getIterations: sinon.spy(() => 1),
+        iterate: sinon.spy()
+      });
+    });
+
     it('should throw an error if the grid parameter is not defined', function() {
       let game;
       try {
@@ -40,7 +58,7 @@ describe.skip('Game', function() {
   });
 
   describe('start()', () => {
-    it('should initialize an arena and start the game', () => {
+    it('should initialize an arena and start the game', (done) => {
       const dom = new Dom(10);
       const grid = new Grid(2, 2);
       const gameOptions = {
@@ -50,8 +68,17 @@ describe.skip('Game', function() {
         arenaSize: 200
       };
       const game = new Game(gameOptions);
-      game.play();
-
+      game.start();
+      setTimeout(() => {
+        game.pause();
+        done();
+        expect(grid.init.calledOnce()).to.be.true;
+        expect(dom.reset.calledOnce()).to.be.true;
+        expect(dom.draw.calledOnce()).to.be.true;
+        expect(grid.getGrid.calledTwice()).to.be.true;
+        expect(dom.update.calledOnce()).to.be.true;
+        expect(grid.iterate.calledOnce()).to.be.true;
+      }, 450);
     });
   });
 
