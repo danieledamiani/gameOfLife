@@ -16,7 +16,7 @@ describe('Game', function() {
       Dom = sinon.stub().returns({
         reset: sinon.spy(),
         draw: sinon.spy(),
-        update: sinon.spy(() => console.log('calling update...')),
+        update: sinon.spy(),
         updateIterations: sinon.spy()
       });
       Grid = sinon.stub().returns({
