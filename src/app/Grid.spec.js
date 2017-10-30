@@ -67,4 +67,39 @@ describe('Grid', function() {
     expect(grid.getRowNumber()).to.equal(2);
     expect(grid.getColumnNumber()).to.equal(3);
   });
+
+  it('should return a 2x3 grid containing all true cells', () => {
+    const randomGenerator = () => 0;
+
+    const expectedGrid = [
+      [true, true, true],
+      [true, true, true]
+    ];
+
+    const grid = new Grid(2, 3, randomGenerator);
+    grid.init();
+    const currentGrid = grid.getGrid();
+
+    expect(grid.getRowNumber()).to.equal(2);
+    expect(grid.getColumnNumber()).to.equal(3);
+    expect(currentGrid).to.eql(expectedGrid);
+  });
+
+  it('should return a 3x2 grid containing all false cells', () => {
+    const randomGenerator = () => 0.6;
+
+    const expectedGrid = [
+      [false, false],
+      [false, false],
+      [false, false]
+    ];
+
+    const grid = new Grid(3, 2, randomGenerator);
+    grid.init();
+    const currentGrid = grid.getGrid();
+
+    expect(grid.getRowNumber()).to.equal(3);
+    expect(grid.getColumnNumber()).to.equal(2);
+    expect(currentGrid).to.eql(expectedGrid);
+  });
 });

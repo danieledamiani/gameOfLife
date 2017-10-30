@@ -5,11 +5,12 @@
 // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 class Grid {
-  constructor(rows, columns) {
+  constructor(rows, columns, randomGenerator) {
     this._rows = rows;
     this._columns = columns;
     this._grids = [];
     this._iterations;
+    this.randomGenerator = randomGenerator || Math.random;
   }
 
   isElementOutsideGrid(elementRow, elementColumn) {
@@ -42,7 +43,7 @@ class Grid {
     for(let rowsIterator = 0; rowsIterator < this._rows; rowsIterator++) {
       let row = [];
       for(let columnsIterator = 0; columnsIterator < this._columns; columnsIterator++) {
-        row[columnsIterator] = Math.random() < 0.5 ? true : false;
+        row[columnsIterator] = this.randomGenerator() < 0.5 ? true : false;
       }
       grid.push(row);
     }
