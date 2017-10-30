@@ -18,7 +18,6 @@ npm start
 nodeJs 6+
 
 ## Todo
- - complete Game specs
  - Grid should have an external dependency to handle the random numbers
  - ui improvements
  - add D3 stats

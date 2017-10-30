@@ -13,11 +13,10 @@ class Game {
     this.inPlay = false;
   }
 
-  start() {
+  init() {
     this.grid.init();
     this.dom.reset();
     this.dom.draw(this.grid.getGrid(), this.rows, this.columns, this.blockSize);
-    this.play();
   }
 
   play() {

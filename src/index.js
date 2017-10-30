@@ -16,7 +16,8 @@ window.addEventListener('load', function() {
     timeout: TIMEOUT,
     arenaSize: ARENA_SIZE
   });
-  game.start();
+  game.init();
+  game.play();
   const playButton = document.getElementById('play');
   const pauseButton = document.getElementById('pause');
   // const nextButton = document.getElementById('next');
