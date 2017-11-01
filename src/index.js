@@ -20,7 +20,7 @@ window.addEventListener('load', function() {
   game.play();
   const playButton = document.getElementById('play');
   const pauseButton = document.getElementById('pause');
-  // const nextButton = document.getElementById('next');
+  const nextButton = document.getElementById('next');
   // const prevButton = document.getElementById('prev');
 
   playButton.addEventListener('click', function() {
@@ -29,5 +29,9 @@ window.addEventListener('load', function() {
 
   pauseButton.addEventListener('click', function() {
     game.pause();
+  });
+
+  nextButton.addEventListener('click', function() {
+    game.next();
   });
 });

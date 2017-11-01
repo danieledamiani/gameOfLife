@@ -30,3 +30,8 @@ button {
   background: #fefefe;
 }
 
+.disabled-button {
+  background: #333;
+  color: #666;
+}
+

@@ -127,6 +127,34 @@ describe('Game', function() {
     });
   });
 
+  describe('next()', () => {
+    it('should stop the auto update and step to the next iteration', (done) => {
+      const dom = new Dom(10);
+      const grid = new Grid(2, 2);
+      const gameOptions = {
+        dom,
+        grid,
+        timeout: 500,
+        arenaSize: 200
+      };
+      const game = new Game(gameOptions);
+      game.init();
+      game.play();
+
+      setTimeout(() => {
+        game.next();
+        expect(game.inPlay).to.be.false;
+        expect(grid.init.calledOnce).to.be.true;
+        expect(dom.reset.calledOnce).to.be.true;
+        expect(dom.draw.calledOnce).to.be.true;
+        expect(grid.getGrid.calledTwice).to.be.true;
+        expect(dom.update.calledOnce).to.be.true;
+        expect(grid.iterate.calledOnce).to.be.true;
+        done();
+      }, 450);
+    });
+  });
+
   describe('updateIterationCounter()', () => {
 
     it('should set call the method updateIterations on the dom object', () => {

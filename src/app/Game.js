@@ -19,14 +19,18 @@ class Game {
     this.dom.draw(this.grid.getGrid(), this.rows, this.columns, this.blockSize);
   }
 
+  update() {
+    this.dom.update(this.grid.getGrid(), this.rows, this.columns);
+    this.grid.iterate();
+    this.updateIterationCounter(this.grid.getIterations());
+  }
+
   play() {
     if (this.inPlay) { return; }
     this.inPlay = true;
     const iterate = () => {
       this.iterationTimeout = setTimeout(() => {
-        this.dom.update(this.grid.getGrid(), this.rows, this.columns);
-        this.updateIterationCounter(this.grid.getIterations());
-        this.grid.iterate();
+        this.update();
         iterate();
       }, this.timeout);
     }
@@ -37,6 +41,12 @@ class Game {
   pause() {
     this.inPlay = false;
     return clearTimeout(this.iterationTimeout);
+  }
+
+  next() {
+    this.inPlay = false;
+    clearTimeout(this.iterationTimeout);
+    this.update();
   }
 
   updateIterationCounter(iterations) {
